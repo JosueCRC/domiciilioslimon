@@ -110,8 +110,8 @@ db.collection("CopiasTelefono").orderBy("Fecha", "desc").onSnapshot((querySnapsh
         <td>${doc.data().Telefono}</td>
         <td>${doc.data().Fecha}</td>
         <td><button class="btn btn-danger btn-just-icon btn-sm" onclick="eliminar('${doc.id}')"> <i class="material-icons">close</i></button></td>
-        <td><button class="btn btn-success btn-just-icon btn-sm"onclick="editar('${doc.id}','${doc.data().Cedula}','${doc.data().Nombre}','${doc.data().Telefono}','${doc.data().Ebais}','${doc.data().Direccion}'),'${doc.data().Recibe}'">  <i class="material-icons">edit</i></button></td>
-        <td><button class="btn btn-warning btn-just-icon btn-sm"onclick="imprimirElemento('${doc.id}','${doc.data().Cedula}','${doc.data().Nombre}','${doc.data().Telefono}','${doc.data().Ebais}','${doc.data().Direccion}'),'${doc.data().Recibe}'">  <i class="material-icons">print</i></button></td>
+        <td><button class="btn btn-success btn-just-icon btn-sm"onclick="editar('${doc.id}','${doc.data().Cedula}','${doc.data().Nombre}','${doc.data().Telefono}','${doc.data().Ebais}','${doc.data().Direccion}','${doc.data().Recibe}','${doc.data().Fecha}')">  <i class="material-icons">edit</i></button></td>
+        <td><button class="btn btn-warning btn-just-icon btn-sm"onclick="imprimirElemento('${doc.id}','${doc.data().Cedula}','${doc.data().Nombre}','${doc.data().Telefono}','${doc.data().Ebais}','${doc.data().Direccion}','${doc.data().Recibe}','${doc.data().Fecha}')">  <i class="material-icons">print</i></button></td>
         </tr>   
         ` //<- ojo a estas comillas especiales 
     });
@@ -133,7 +133,7 @@ function eliminar(id){
 }
 
 //editar documentos
-function editar(id,cedula,nombre,telefono, ebais, direccion, recibe){
+function editar(id,cedula,nombre,telefono, ebais, direccion, recibe,fecha){
 
 document.getElementById('cedula').value= cedula;
 document.getElementById('nombre').value= nombre;
@@ -141,6 +141,7 @@ document.getElementById('telefono').value= telefono;
 document.getElementById('ebais').value= ebais;
 document.getElementById('direccion').value= direccion;
 document.getElementById('recibe').value= recibe;
+document.getElementById('fecha').value= fecha;
 var boton = document.getElementById('boton');
 boton.innerHTML='Editar';
 boton.onclick = function (){
@@ -237,32 +238,9 @@ function myFunction(event) {
   
   }
  
+     
 
-
-function imprimir (){
-    var telefono= document.getElementById('telefono').value;
-    var cedula= document.getElementById('cedula').value;
-    var nombre= document.getElementById('nombre').value;
-    var ebais = document.getElementById('ebais').value;
-    var telefono = document.getElementById('telefono').value;
-    var direccion = document.getElementById('direccion').value;
-    var recibe = document.getElementById('recibe').value;
-  
-
-   
-     var doc = new jsPDF()
-      doc.fromHTML("Identificacion: " + cedula + 
-                  "<br/> Nombre: "+ nombre + 
-                  "<br/>Telefono: "+telefono+
-                  "<br/>Direccion: "+direccion +
-                  "<br/>Telefono "+telefono+
-                  "<br/>Recibe "+recibe )
-        doc.save("output.pdf")
-  
-}
-        
-
-function imprimirElemento(id,cedula,nombre,telefono, ebais, direccion, recibe) {
+function imprimirElemento(id,cedula,nombre,telefono, ebais, direccion, recibe,fecha) {
 
     document.getElementById('cedula').value= cedula;
     document.getElementById('nombre').value= nombre;
@@ -270,12 +248,14 @@ function imprimirElemento(id,cedula,nombre,telefono, ebais, direccion, recibe) {
     document.getElementById('ebais').value= ebais;
     document.getElementById('direccion').value= direccion;
     document.getElementById('recibe').value= recibe;
+    document.getElementById('fecha').value= fecha;
     
        var printCedula= document.getElementById('cedula');
        var printNombre= document.getElementById('nombre');
        var printTelefono= document.getElementById('telefono');
        var printDireccion= document.getElementById('direccion');
-       //var printRecibe= document.getElementById('recibe');
+       var printRecibe= document.getElementById('recibe');
+       var printFecha = document.getElementById('fecha');
        console.log(recibe)
        console.log(recibe)
        console.log(recibe)
@@ -292,16 +272,16 @@ function imprimirElemento(id,cedula,nombre,telefono, ebais, direccion, recibe) {
     ventana.document.write('<p>'+ '<img src="https://www.ccss.sa.cr/img/logo.png"> <hr> <p>CAJA COSTARRICENSE DE SEGURO SOCIAL</p>' +
     '<h3>Area de Salud Limon</h3>' +
     '<p>Formulario de registro para el envio a domicilio de los medicamentos</p> '+ 
-    '<p>'+ n +'</<p>'+
+    '<p>'+ printFecha.value +'</<p>'+
     '<hr>'+
     '<h3>' + printCedula.value + '</h3> <hr>'+ 
     printNombre.value +'<hr>'+
     printTelefono.value +'<hr>'+
     printDireccion.value +'<hr>'+
     '<P>Firma Recibido</P> <br><hr>'+
-    //printRecibe.value +'<hr>'+
-    
+    printRecibe.value +'<hr>'+    
     n);
+
     ventana.document.write('</body></html>');
     limpiarCampos();
     ventana.document.close();
