@@ -1,0 +1,329 @@
+<!--
+=========================================================
+Material Kit - v2.0.7
+=========================================================
+
+Product Page: https://www.creative-tim.com/product/material-kit
+Copyright 2020 Creative Tim (https://www.creative-tim.com/)
+
+Coded by Creative Tim
+
+=========================================================
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="./assets/img/icon.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+    Farmacia Area de Salud Limon
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+  <!-- CSS Files -->
+  <link href="./assets/css/material-kit.css?v=2.0.7" rel="stylesheet" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href="./assets/demo/demo.css" rel="stylesheet" />
+
+
+    <!--firebasestore-->
+    <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-firestore.js"></script>
+    
+
+
+  <!--formden.js communicates with FormDen server to validate fields and submit via AJAX -->
+  <script type="text/javascript" src="https://formden.com/static/cdn/formden.js"></script>
+
+
+
+</head>
+
+<style>
+  @media print{
+    body * {
+      visibility: hidden;
+    }
+    .print-container, .print-container *{
+      visibility: visible;
+    }
+    .print-container{
+      position: absolute;
+      left: 0px;
+    }
+  }
+</style>
+
+<body class="index-page sidebar-collapse">
+
+  <div class="space-10"></div>
+  
+  <div class="main main-raised" id="cuerpo">
+    <div class="section section-basic">
+      <div class="container">
+     
+   
+    
+    <div class="section section-signup " style="background-image: url('./assets/img/cedula7.jpg');">
+      <div class="container" >
+        <div class="row">
+          <div class="col-lg-6 col-md-6 mx-auto">
+
+            
+            <div class="card card-login" id="imprimible">
+
+              <form class="form print-container" id="mainForm" name="mainForm">
+
+                <div class="card-header card-header-primary text-center">
+                  <h4 class="card-title" id="titulo">Area de Salud Limon</h4>
+                  <div class="social-line">
+                    <a href="javascript:;" class="btn btn-just-icon btn-link">
+                      <i class="fa fa-facebook-square"></i>
+                    </a>
+                    <a href="javascript:;" class="btn btn-just-icon btn-link">
+                      <i class="fa fa-twitter"></i>
+                    </a>
+                    <a href="javascript:;" class="btn btn-just-icon btn-link">
+                      <i class="fa fa-google-plus"></i>
+                    </a>
+                  </div>
+                </div>
+
+                <p class="description text-center" id="encabezado">FORMULARIO DE REGISTRO PARA EL ENVIO A DOMICILIO DE LOS MEDICAMENTOS</p>
+                <div class="card-body">
+                  <form >   
+                      <div class="form-check form-check-radio form-check-inline">
+                      <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="0"> 0 Nacional
+                        <span class="circle">
+                            <span class="check"></span>
+                        </span>
+                      </label>
+                      </div>
+                      <div class="form-check form-check-radio form-check-inline">
+                      <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="6"> 6 Interno
+                        <span class="circle">
+                            <span class="check"></span>
+                        </span>
+                      </label>
+                      </div>
+                      <div class="form-check form-check-radio form-check-inline disabled">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="radio" name="gender" id="inlineRadio3" value="7" >7 Extrangero
+                          <span class="circle">
+                              <span class="check"></span>
+                          </span>
+                        </label>
+                      </div>
+                      <span id="result" class="badge badge-pill badge-primary">Seleccione tipo de identificacion</span>
+                  </form>
+                    <div class="input-group">
+                    <input type="hidden" id="id" value="" class="form-control" />
+                  </div>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="material-icons">format_list_numbered</i>
+                      </span>
+                    </div>
+                    <input type="text" id="cedula" placeholder="Identificacion" value="" class="form-control" />
+                   
+                  </div>
+                
+                   <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="material-icons">face</i>
+                      </span>
+                    </div>
+                    <input type="text" id="nombre" placeholder="Nombre del Paciente" value="" class="form-control" />
+                  </div>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="material-icons">mobile_screen_share</i>
+                      </span>
+                    </div>
+                    <input type="text" id="telefono" placeholder="Telefono" value="" class="form-control" />
+
+                  </div>
+
+                    
+                     <input type="hidden" id="fecha" placeholder="fecha" value="" class="form-control" />
+
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="material-icons">perm_contact_calendar</i>
+                      </span>
+                    </div>
+                    <select class="form-control selectpicker" data-style="btn btn-link" id="ebais">
+                      <option>Cocos</option>
+                      <option>Colina</option>
+                      <option>Otro</option>
+                      
+                    </select>
+                  </div>
+
+                  	<div class="form-group">
+                    <label for="exampleFormControlTextarea1">Señas Exactas:</label>
+                    <textarea class="form-control" id="direccion" rows="3"></textarea>
+                  </div>
+
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="fa fa-group"></i>
+                        </span>
+                      </div>
+                      <input type="text" class="form-control" id ="recibe" placeholder="PERSONA QUE RECIBE EL TRATAMIENTO">
+                    </div>
+
+                        </div>
+                        <div class="footer text-center">
+                        <button class="btn btn-primary btn-lg btn-block" id="boton" onclick="guardar()" >Guardar</button>
+                        
+                        </div>
+                	
+                	
+              </form>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+     <div class="col-lg-3 col-sm-4">
+              <div class="form-group has-success bmd-form-group">
+                <label for="exampleInput2" class="bmd-label-floating">Buscar por Identificacion</label>
+                <input type="text" class="form-control" id="myInput" onkeyup="myFiltro()">
+                <span class="form-control-feedback">
+                  <i class="material-icons">search</i>
+                </span>
+              </div>
+            </div>
+    <table class="table my-3" >
+      <thead>
+        <tr>
+          <th scope="col">TipoID</th>
+          <th scope="col">Cedula</th>
+          <th scope="col">Nombre Completo</th>
+          <th scope="col">Ebais</th>
+          <th scope="col">Telefono</th>
+          <th scope="col">Fecha</th>
+               
+          <th>Eliminar</th>
+          <th>Editar</th>
+          <th>Imprimir</th>
+        </tr>
+      </thead>
+      <tbody id="tabla"> </tbody>
+    </table>
+
+<script>
+function myFiltro() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("tabla");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("th")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
+
+  <!--  End Modal -->
+  <footer class="footer" data-background-color="black">
+    <div class="container">
+      <nav class="float-left">
+        <ul>
+          <li>
+            <a href="https://www.creative-tim.com/">
+              Creative Tim
+            </a>
+          </li>
+          <li>
+            <a href="/">
+              About Us
+            </a>
+          </li>
+          <li>
+            <a href="/">
+              Blog
+            </a>
+          </li>
+        
+          <li>
+            <p class="mb-0" id="FechaActual" v-model="hoy">
+              - <a href="dashboard.html" class="text-muted">Spark</a>
+             </p>
+          </li>
+        </ul>
+      </nav>
+      <div class="copyright float-right">
+        &copy;
+        <script>
+          document.write(new Date().getFullYear())
+        </script>, made with <i class="material-icons" onclick="imprimirElemento()">favorite</i> by
+        <a href="https://www.creative-tim.com/" target="_blank">Josue</a> for my partners
+      </div>
+    </div>
+  </footer>
+  <!--   Core JS Files   -->
+  <script src="./assets/js/core/jquery.min.js" type="text/javascript"></script>
+  <script src="./assets/js/core/popper.min.js" type="text/javascript"></script>
+  <script src="./assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
+  <script src="./assets/js/plugins/moment.min.js"></script>
+  <!--	Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
+  <script src="./assets/js/plugins/bootstrap-datetimepicker.js" type="text/javascript"></script>
+  <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+  <script src="./assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
+  <!--  Google Maps Plugin    -->
+  <!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
+  <script src="./assets/js/material-kit.js?v=2.0.7" type="text/javascript"></script>
+  <script>
+    $(document).ready(function() {
+      //init DateTimePickers
+      materialKit.initFormExtendedDatetimepickers();
+
+      // Sliders Init
+      materialKit.initSliders();
+    });
+
+
+    function scrollToDownload() {
+      if ($('.section-download').length != 0) {
+        $("html, body").animate({
+          scrollTop: $('.section-download').offset().top
+        }, 1000);
+      }
+    }
+  </script>
+
+<script src="js/app.js"></script>
+<script src="js/jspdf.min.js"></script>
+<script>
+ 
+
+</script>
+ <div class="invisible"><img src="https://www.ccss.sa.cr/img/logo.png
+                " alt="Circle Image" class="rounded-circle img-fluid" id="imagen"></div>
+</body>
+
+</html>
