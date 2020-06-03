@@ -32,10 +32,9 @@ function ingreso(){
         var errorCode = error.code;
         var errorMessage = error.message;
         // ...
-        console.log(errorCode);
-        console.log(errorMessage);
+        alert(errorCode);
+        alert(errorMessage);
       });
-   
 }
 
 function observador(){
@@ -85,8 +84,7 @@ function aparece(user){
     if (user.emailVerified){
         contenido.innerHTML= `
           <div class="alert alert-light" role="alert">
-            
-           
+
 
             <div class="card-header card-header-primary text-center">
 
@@ -94,7 +92,7 @@ function aparece(user){
                   <div class="col-sm-8"></div>
                   <div class="col-sm-4" ><p id="username">${user.email} </p>
                   
-                  <a href="#" class="badge badge-danger "data-toggle="modal" data-target="#cerrarSesion">x cerrar sesion</a>
+                  <a href="#" class="badge badge-danger "data-toggle="modal" data-target="#" onclick="cerrar()">x cerrar sesion</a>
                   
                 </button>
                 
@@ -113,7 +111,7 @@ function aparece(user){
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button  class="btn btn-danger" onclick="cerrar()">Cerrar sesion</button>
+                        <button  class="btn btn-danger" >Cerrar sesion</button>
                       </div>
                     </div>
                   </div>
@@ -265,10 +263,64 @@ function aparece(user){
 
             
      
+    <div class="container mt-3 " >     
+    <div class="table-responsive">
+      <table class="table" >
+        <thead>
+          <tr>
+            <th scope="col">TipoID</th>
+            <th scope="col">Cedula</th>
+            <th scope="col">Nombre Completo</th>
+            <th scope="col">Ebais</th>
+            <th scope="col">Telefono</th>
+            <th scope="col">Fecha</th>   
+            <th>Eliminar</th>
+            <th>Editar</th>
+            <th>Imprimir</th>
+          </tr>
+        </thead>
+        <tbody id="tabla"> </tbody>
+      </table>
+    </div>
+  </div>
             
         
-    `;
-    }
+    `
+   //Leer documentos.
+var tabla = document.getElementById('tabla');
+db.collection("CopiasTelefono").orderBy("Fecha", "desc").onSnapshot((querySnapshot) => {
+//db.collection("CopiasTelefono").where("Cedula", "==", "").onSnapshot((querySnapshot) => {
+    tabla.innerHTML='';
+    contador = 0
+     querySnapshot.forEach((doc) => {
+        /* console.log(`${doc.id} => ${doc.data()}`); */
+        contador++;
+        
+        //console.log (contador);
+        if (user.emailVerified){
+
+        }else{
+            
+        }
+            
+
+
+        tabla.innerHTML += `
+        <tr>
+        <td>${doc.data().TipoID}</td>
+        <th scope="row">${doc.data().Cedula}</th>
+        <td>${doc.data().Nombre}</td>
+        <td>${doc.data().Ebais}</td>
+        <td>${doc.data().Telefono}</td>
+        <td>${doc.data().Fecha}</td>
+        <td><button class="btn btn-danger btn-just-icon btn-sm" onclick="eliminar('${doc.id}')"> <i class="material-icons">close</i></button></td>
+        <td><button class="btn btn-success btn-just-icon btn-sm"onclick="editar('${doc.id}','${doc.data().TipoID}','${doc.data().Cedula}','${doc.data().Nombre}','${doc.data().Telefono}','${doc.data().Ebais}','${doc.data().Correo}','${doc.data().Direccion}','${doc.data().Recibe}','${doc.data().Fecha}')">  <i class="material-icons">edit</i></button></td>
+        <td><button class="btn btn-warning btn-just-icon btn-sm"onclick="imprimirElemento('${doc.id}','${doc.data().Cedula}','${doc.data().Nombre}','${doc.data().Telefono}','${doc.data().Ebais}','${doc.data().Direccion}','${doc.data().Recibe}','${doc.data().Fecha}')">  <i class="material-icons">print</i></button></td>
+        </tr>   
+        ` //<- ojo a estas comillas especiales 
+    });
+});
+ }
     
 }
 

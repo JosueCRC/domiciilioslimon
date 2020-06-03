@@ -1,25 +1,25 @@
 
 //var d = new Date();
 let timeNow = new Date();
-var n = timeNow.toLocaleDateString();
-document.getElementById('FechaActual').innerHTML= n;
-
-
-
-
 // Queremos que la hora se muestre siempre con 2 dígitos. Para eso, hacemos lo siguiente:
 // Usamos un ternario para saber si el número de digitos es menor que 2
 let hours = timeNow.getHours().toString().length < 2 ? "0" + timeNow.getHours() : timeNow.getHours();
 let minutes = timeNow.getMinutes().toString().length < 2 ? "0" + timeNow.getMinutes() : timeNow.getMinutes();
 let seconds = timeNow.getSeconds().toString().length < 2 ? "0" + timeNow.getSeconds() : timeNow.getSeconds();
+console.log(timeNow)
 
-//  Concatenando variables | Usando ES5 
-// let mainTime = hours + ":" + minutes + ":" + seconds;
- //  Concatenando variables | Usando ES6: Template Strings (Template literals) 
+
+const d = new Date()
+const ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d)
+const mo = new Intl.DateTimeFormat('en', { month: '2-digit' }).format(d)
+const da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d)
+
+let mainDay = (`${da}/${mo}/${ye}`)
 let mainTime = `${hours}:${minutes}`;
-console.log(n);
+console.log(mainDay)
+console.log(mainTime)
 
-console.log(mainTime);
+
 
 // Initialize Cloud Firestore through Firebase
 /* var firebaseConfig = {
@@ -68,7 +68,7 @@ function guardar (){
         Ebais: ebais,
         Correo: correo,
         Direccion: direccion,
-        Fecha: n + " " + mainTime,
+        Fecha: mainDay + " " + mainTime,
         Recibe: recibe,
         
         //Receta : receta,
@@ -90,29 +90,7 @@ function guardar (){
     });
 }
 
-//Leer documentos.
-var tabla = document.getElementById('tabla');
-db.collection("CopiasTelefono").orderBy("Fecha", "desc").onSnapshot((querySnapshot) => {
-//db.collection("CopiasTelefono").where("Cedula", "==", "").onSnapshot((querySnapshot) => {
-    tabla.innerHTML='';
-    contador = 0
-     querySnapshot.forEach((doc) => {
-        /* console.log(`${doc.id} => ${doc.data()}`); */
-        tabla.innerHTML += `
-        <tr>
-        <td>${doc.data().TipoID}</td>
-        <th scope="row">${doc.data().Cedula}</th>
-        <td>${doc.data().Nombre}</td>
-        <td>${doc.data().Ebais}</td>
-        <td>${doc.data().Telefono}</td>
-        <td>${doc.data().Fecha}</td>
-        <td><button class="btn btn-danger btn-just-icon btn-sm" onclick="eliminar('${doc.id}')"> <i class="material-icons">close</i></button></td>
-        <td><button class="btn btn-success btn-just-icon btn-sm"onclick="editar('${doc.id}','${doc.data().TipoID}','${doc.data().Cedula}','${doc.data().Nombre}','${doc.data().Telefono}','${doc.data().Ebais}','${doc.data().Correo}','${doc.data().Direccion}','${doc.data().Recibe}','${doc.data().Fecha}')">  <i class="material-icons">edit</i></button></td>
-        <td><button class="btn btn-warning btn-just-icon btn-sm"onclick="imprimirElemento('${doc.id}','${doc.data().Cedula}','${doc.data().Nombre}','${doc.data().Telefono}','${doc.data().Ebais}','${doc.data().Direccion}','${doc.data().Recibe}','${doc.data().Fecha}')">  <i class="material-icons">print</i></button></td>
-        </tr>   
-        ` //<- ojo a estas comillas especiales 
-    });
-});
+
 
 
 
@@ -269,7 +247,7 @@ function imprimirElemento(id,cedula,nombre,telefono, ebais, direccion, recibe,fe
        var printTelefono= document.getElementById('telefono');
        var printDireccion= document.getElementById('direccion');
        var printRecibe= document.getElementById('recibe');
-       var printFecha = document.getElementById('fecha');
+       var printFecha = document.getElementById('fecha'); 
 
        var getEbais = document.getElementById('ebais');
        var printEbais = getEbais.options[getEbais.selectedIndex].innerHTML;  
@@ -281,7 +259,7 @@ function imprimirElemento(id,cedula,nombre,telefono, ebais, direccion, recibe,fe
     ventana.document.write('<p>'+ '<img src="https://www.ccss.sa.cr/img/logo.png"> <hr> <p>CAJA COSTARRICENSE DE SEGURO SOCIAL</p>' +
     '<h3>Area de Salud Limon</h3>' +
     '<p>Formulario de registro para el envio a domicilio de los medicamentos</p> '+ 
-    '<p>'+ printFecha.value +'</<p>'+
+    '<p>Fecha de Impresion: '+ mainDay + " " +mainTime +'</<p>'+
     '<hr>'+
     '<h3>' + printCedula.value + '</h3> <hr>'+ 
     printNombre.value +'<hr>'+
@@ -291,7 +269,7 @@ function imprimirElemento(id,cedula,nombre,telefono, ebais, direccion, recibe,fe
     document.getElementById("username").innerHTML + '<hr>' +
     '<P>Firma Recibido</P> <br><hr>'+
     printRecibe.value +'<hr>'+    
-    n);
+    printFecha.value);
 
     ventana.document.write('</body></html>');
     limpiarCampos();
