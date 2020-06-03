@@ -50,8 +50,7 @@ function guardar (){
   
     //var fecha = date.toDateString();
     //console.log(`${doc.id} => ${doc.data().first}`);
-   console.log(n);
-    
+       
  
 
     //var apellido= document.getElementById('apellido').value;
