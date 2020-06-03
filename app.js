@@ -164,7 +164,7 @@ function aparece(user){
                     <i class="material-icons">face</i>
                   </span>
                 </div>
-                <input type="text" id="nombre" placeholder="Nombre del Paciente" value="" class="form-control" />
+                <input type="text" id="nombre" placeholder="Nombre del Paciente" value="" class="form-control text-uppercase" />
               </div>
             </div>
           </div>
@@ -237,7 +237,7 @@ function aparece(user){
             
               <div class="form-group">
               <label for="exampleFormControlTextarea1">Señas Exactas:</label>
-              <textarea class="form-control" id="direccion" rows="2"></textarea>
+              <textarea class="form-control text-uppercase" id="direccion" rows="2"></textarea>
             </div>
               <div class="row">
                 <div class="col-sm">
