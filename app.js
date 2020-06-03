@@ -261,7 +261,17 @@ function aparece(user){
     </div>
             </div>
 
-            
+            <div class="container mt-4" >
+            <div class="col-4 col-md-6 sx-12">
+              <div class="input-group">
+              
+              <input type="text" id="myInput" onkeyup="myFiltro()" placeholder="Buscar" value="" class="form-control" />
+              <span class="input-group-text">
+                <i class="material-icons">search</i>
+              </span>
+            </div>
+          </div>
+      </div>
      
     <div class="container mt-3 " >     
     <div class="table-responsive">
