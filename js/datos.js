@@ -1,25 +1,25 @@
 
 //var d = new Date();
 let timeNow = new Date();
+var n = timeNow.toLocaleDateString();
+document.getElementById('FechaActual').innerHTML= n;
+
+
+
+
 // Queremos que la hora se muestre siempre con 2 dígitos. Para eso, hacemos lo siguiente:
 // Usamos un ternario para saber si el número de digitos es menor que 2
 let hours = timeNow.getHours().toString().length < 2 ? "0" + timeNow.getHours() : timeNow.getHours();
 let minutes = timeNow.getMinutes().toString().length < 2 ? "0" + timeNow.getMinutes() : timeNow.getMinutes();
 let seconds = timeNow.getSeconds().toString().length < 2 ? "0" + timeNow.getSeconds() : timeNow.getSeconds();
-console.log(timeNow)
 
-
-const d = new Date()
-const ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d)
-const mo = new Intl.DateTimeFormat('en', { month: '2-digit' }).format(d)
-const da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d)
-
-let mainDay = (`${da}/${mo}/${ye}`)
+//  Concatenando variables | Usando ES5 
+// let mainTime = hours + ":" + minutes + ":" + seconds;
+ //  Concatenando variables | Usando ES6: Template Strings (Template literals) 
 let mainTime = `${hours}:${minutes}`;
-console.log(mainDay)
-console.log(mainTime)
+console.log(n);
 
-
+console.log(mainTime);
 
 // Initialize Cloud Firestore through Firebase
 /* var firebaseConfig = {
@@ -68,7 +68,7 @@ function guardar (){
         Ebais: ebais,
         Correo: correo,
         Direccion: direccion,
-        Fecha: mainDay + " " + mainTime,
+        Fecha: n + " " + mainTime,
         Recibe: recibe,
         
         //Receta : receta,
@@ -98,11 +98,6 @@ db.collection("CopiasTelefono").orderBy("Fecha", "desc").onSnapshot((querySnapsh
     contador = 0
      querySnapshot.forEach((doc) => {
         /* console.log(`${doc.id} => ${doc.data()}`); */
-        contador++;
-        
-        //console.log (contador);
-
-
         tabla.innerHTML += `
         <tr>
         <td>${doc.data().TipoID}</td>
@@ -274,7 +269,7 @@ function imprimirElemento(id,cedula,nombre,telefono, ebais, direccion, recibe,fe
        var printTelefono= document.getElementById('telefono');
        var printDireccion= document.getElementById('direccion');
        var printRecibe= document.getElementById('recibe');
-       var printFecha = document.getElementById('fecha'); 
+       var printFecha = document.getElementById('fecha');
 
        var getEbais = document.getElementById('ebais');
        var printEbais = getEbais.options[getEbais.selectedIndex].innerHTML;  
@@ -286,7 +281,7 @@ function imprimirElemento(id,cedula,nombre,telefono, ebais, direccion, recibe,fe
     ventana.document.write('<p>'+ '<img src="https://www.ccss.sa.cr/img/logo.png"> <hr> <p>CAJA COSTARRICENSE DE SEGURO SOCIAL</p>' +
     '<h3>Area de Salud Limon</h3>' +
     '<p>Formulario de registro para el envio a domicilio de los medicamentos</p> '+ 
-    '<p>Fecha de Impresion: '+ mainDay + " " +mainTime +'</<p>'+
+    '<p>'+ printFecha.value +'</<p>'+
     '<hr>'+
     '<h3>' + printCedula.value + '</h3> <hr>'+ 
     printNombre.value +'<hr>'+
@@ -296,7 +291,7 @@ function imprimirElemento(id,cedula,nombre,telefono, ebais, direccion, recibe,fe
     document.getElementById("username").innerHTML + '<hr>' +
     '<P>Firma Recibido</P> <br><hr>'+
     printRecibe.value +'<hr>'+    
-    printFecha.value);
+    n);
 
     ventana.document.write('</body></html>');
     limpiarCampos();
