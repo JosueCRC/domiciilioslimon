@@ -48,17 +48,7 @@ function guardar (){
     var direccion = document.getElementById('direccion').value;
     var recibe = document.getElementById('recibe').value;
   
-    //var fecha = date.toDateString();
-    //console.log(`${doc.id} => ${doc.data().first}`);
-       
- 
-
-    //var apellido= document.getElementById('apellido').value;
-    //var ebais = document.getElementById('centroSalud').value;
-    //var fechaReceta = document.getElementById('fechaReceta').value;
-    //var horaEntra = document.getElementById('horaEntra').value;
-//    console.log(fechaReceta);
-
+  
     db.collection("CopiasTelefono").add({
         TipoID: tipoid,
         Cedula: cedula,
@@ -70,10 +60,7 @@ function guardar (){
         Fecha: mainDay + " " + mainTime,
         Recibe: recibe,
         
-        //Receta : receta,
-        //FechaReceta: fechaReceta,
-        //FechaActual: n, 
-        //HoraEntra : horaEntra
+    
                 
     })
     .then(function(docRef) {
