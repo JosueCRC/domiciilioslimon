@@ -1,320 +1,298 @@
+function registrar(){
+    
+    var email = document.getElementById('email').value;
+    var contraseña = document.getElementById('contraseña').value;
+    console.log(email);
+    console.log(contraseña);
 
-//var d = new Date();
-let timeNow = new Date();
-var n = timeNow.toLocaleDateString();
-document.getElementById('FechaActual').innerHTML= n;
-
-
-// Queremos que la hora se muestre siempre con 2 dígitos. Para eso, hacemos lo siguiente:
-// Usamos un ternario para saber si el número de digitos es menor que 2
-let hours = timeNow.getHours().toString().length < 2 ? "0" + timeNow.getHours() : timeNow.getHours();
-let minutes = timeNow.getMinutes().toString().length < 2 ? "0" + timeNow.getMinutes() : timeNow.getMinutes();
-let seconds = timeNow.getSeconds().toString().length < 2 ? "0" + timeNow.getSeconds() : timeNow.getSeconds();
-
-//  Concatenando variables | Usando ES5 
-// let mainTime = hours + ":" + minutes + ":" + seconds;
- //  Concatenando variables | Usando ES6: Template Strings (Template literals) 
-let mainTime = `${hours}:${minutes}`;
-
-
-// Initialize Cloud Firestore through Firebase
-var firebaseConfig = {
-    apiKey: "AIzaSyC74QNWfrpQ_dlAxU9fkSGYL-qDgYxiHn4",
-    authDomain: "tiempos-d2216.firebaseapp.com",
-    databaseURL: "https://tiempos-d2216.firebaseio.com",
-    projectId: "tiempos-d2216",
-    storageBucket: "tiempos-d2216.appspot.com",
-    messagingSenderId: "361199090866",
-    appId: "1:361199090866:web:d53a63ee9b4b93c8"
-  };
-  // Initialize Firebase
-
-  firebase.initializeApp(firebaseConfig);
-  var db = firebase.firestore();
-  
-
-  document.mainForm.onclick = function(){
-     
-    var gender = document.querySelector('input[name = gender]:checked').value;
-    result.innerHTML = gender;
-    console.log( gender);
+    firebase.auth().createUserWithEmailAndPassword(email, contraseña)
+    .then(function(){
+        verificar()
+    })
+    .catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
+        console.log(errorCode);
+        console.log(errorMessage);
+      });
+   
+    
 }
-//agregar documentos
-function guardar (){
-     
-    var cedula= document.getElementById('cedula').value;
-    var nombre = document.getElementById('nombre').value;
-    var tipoid = document.querySelector('input[name = gender]:checked').value;
-    var ebais = document.getElementById('ebais').value;
-    var telefono = document.getElementById('telefono').value;
-        var direccion = document.getElementById('direccion').value;
-        var recibe = document.getElementById('recibe').value;
 
-
+function ingreso(){
     
-    //var fecha = date.toDateString();
-    //console.log(`${doc.id} => ${doc.data().first}`);
-  
-    console.log(mainTime);
-    
+    var email2 = document.getElementById('email2').value;
+    var contraseña2 = document.getElementById('contraseña2').value;
+    console.log(email2);
+    console.log(contraseña2);
+    firebase.auth().signInWithEmailAndPassword(email2, contraseña2).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
+        console.log(errorCode);
+        console.log(errorMessage);
+      });
+   
+}
 
+function observador(){
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          // User is signed in.
+          console.log('Existe usuario Activo')
+          aparece(user);
+          var displayName = user.displayName;
+          var email = user.email;
+          var emailVerified = user.emailVerified;
+            console.log('*********')
+            console.log(user.emailVerified);
+            console.log('*********')
 
-    //var apellido= document.getElementById('apellido').value;
-    //var ebais = document.getElementById('centroSalud').value;
-    //var fechaReceta = document.getElementById('fechaReceta').value;
-    //var horaEntra = document.getElementById('horaEntra').value;
-//    console.log(fechaReceta);
+          var photoURL = user.photoURL;
+          var isAnonymous = user.isAnonymous;
+          var uid = user.uid;
+          console.log('*********')
+          console.log(displayName);
+          console.log('*********')
+          var providerData = user.providerData;
+          // ...
+        } else {
+          // User is signed out.
+          console.log('No se ha iniciado sesion.')
+          // ...
+          contenido.innerHTML= `
 
-    db.collection("CopiasTelefono").add({
-        Cedula: cedula,
-        TipoID: tipoid,
-        Ebais: ebais,
-        Nombre: nombre,
-        Telefono: telefono,
-        Direccion: direccion,
-        Fecha: n + " " + mainTime,
-        Recibe: recibe,
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <strong>Bienvenido!</strong> no has iniciado sesión.
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
         
-        //Receta : receta,
-        //FechaReceta: fechaReceta,
-        //FechaActual: n, 
-        //HoraEntra : horaEntra
+    `;
+        }
+      });
+}
+
+observador();
+
+function aparece(user){
+    var user = user;
+    var contenido = document.getElementById('contenido');
+    if (user.emailVerified){
+        contenido.innerHTML= `
+          <div class="alert alert-light" role="alert">
+            
+           
+
+            <div class="card-header card-header-primary text-center">
+
+                <div class="row">
+                  <div class="col-sm-8"></div>
+                  <div class="col-sm-4" ><p id="username">${user.email} </p>
+                  
+                  <a href="#" class="badge badge-danger "data-toggle="modal" data-target="#cerrarSesion">x cerrar sesion</a>
+                  
+                </button>
                 
-    })
-    .then(function(docRef) {
-        console.log("Document written with ID: ", docRef.id);
-        limpiarCampos();
-        alert("Registro Almacenado Correctamente");
+                <!-- Modal -->
+                <div class="modal fade" id="cerrarSesion" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Desea Cerrar sesión</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        ${user.email}
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button  class="btn btn-danger" onclick="cerrar()">Cerrar sesion</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                  </div>
+                </div>
 
-    })
-    .catch(function(error) {
-        console.error("Error adding document: ", error);
+                    <h3 class="card-title" id="titulo">Area de Salud Limon.!</h3>
+              <p class="description text-center" id="encabezado">FORMULARIO DE REGISTRO PARA EL ENVIO A DOMICILIO DE LOS MEDICAMENTOS</p>
+              <div class="social-line">
+           
+              
+              </div>
 
-    });
-}
+              <hr>
+              <div class="container">
+      <div class="card-body">
+          <div class="row">
+                <div class="col col-12 col-md-6">
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect1">Tipo de Identificacion</label>
+                    <select id="tipoId"  class="form-control" required="required"><option value="">Seleccione:</option>
+                    <option value="0">NACIONAL</option>
+                    <option value="7">EXTRANGERO</option>
+                    <option value="6">INTERNO</option>
+                    														
+                </select>
+                  </div>  
+                </div>
+              <div class="col col-12 col-md-6">
+                <div class="input-group">
+                    <label for="exampleFormControlSelect1">Numero de Identificacion</label>
+                    <input type="hidden" id="id" value="" class="form-control" />
+                  </div>
+                  <div class="input-group">
+                  <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="material-icons">format_list_numbered</i>
+                      </span>
+                    </div>
+                    <input type="text" id="cedula" placeholder="Identificacion" value="" class="form-control" />
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-sm">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="material-icons">face</i>
+                  </span>
+                </div>
+                <input type="text" id="nombre" placeholder="Nombre del Paciente" value="" class="form-control" />
+              </div>
+            </div>
+          </div>
+            <div class="row mt-3">
+                  <div class="col-12 col-md-6">
+                      <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="material-icons">mobile_screen_share</i>
+                        </span>
+                      </div>
+                      <input type="text" id="telefono" placeholder="Telefono" value="" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6">
+                      <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="material-icons">mobile_screen_share</i>
+                        </span>
+                      </div>
+                      <input type="text" id="correo" placeholder="Correo" value="" class="form-control" />
+                    </div>
+                  </div>
+            </div>
+              
+            <input type="hidden" id="fecha" placeholder="fecha" value="" class="form-control" />
 
-//Leer documentos.
-var tabla = document.getElementById('tabla');
-db.collection("CopiasTelefono").orderBy("Fecha", "desc").onSnapshot((querySnapshot) => {
-//db.collection("CopiasTelefono").where("Cedula", "==", "").onSnapshot((querySnapshot) => {
-    tabla.innerHTML='';
-    contador = 0
-     querySnapshot.forEach((doc) => {
-        console.log(`${doc.id} => ${doc.data()}`);
-        tabla.innerHTML += `
-        <tr>
-        <td>${doc.data().TipoID}</td>
-        <th scope="row">${doc.data().Cedula}</th>
-        <td>${doc.data().Nombre}</td>
-        <td>${doc.data().Ebais}</td>
-        <td>${doc.data().Telefono}</td>
-        <td>${doc.data().Fecha}</td>
-        <td><button class="btn btn-danger btn-just-icon btn-sm" onclick="eliminar('${doc.id}')"> <i class="material-icons">close</i></button></td>
-        <td><button class="btn btn-success btn-just-icon btn-sm"onclick="editar('${doc.id}','${doc.data().Cedula}','${doc.data().Nombre}','${doc.data().Telefono}','${doc.data().Ebais}','${doc.data().Direccion}','${doc.data().Recibe}','${doc.data().Fecha}')">  <i class="material-icons">edit</i></button></td>
-        <td><button class="btn btn-warning btn-just-icon btn-sm"onclick="imprimirElemento('${doc.id}','${doc.data().Cedula}','${doc.data().Nombre}','${doc.data().Telefono}','${doc.data().Ebais}','${doc.data().Direccion}','${doc.data().Recibe}','${doc.data().Fecha}')">  <i class="material-icons">print</i></button></td>
-        </tr>   
-        ` //<- ojo a estas comillas especiales 
-    });
-});
+                <div class="row mt-3">
+                      <div class="col col-12 col-md-6">
+                      <div class="input-group mb-3 ">
+                        <div class="input-group-prepend">
+                          <label class="input-group-text" for="inputGroupSelect01"><i class="material-icons">face</i></label>
+                        </div>
+                          <select  id="ebais" name="ebais_activos" class="form-control" required="required"><option value="" >Seleccione:</option>
+                            <option value="263201">EBAIS LOS COCOS </option>
+                            <option value="263202">EBAIS LA COLINA </option>
+                            <option value="263203">EBAIS PUEBLO NUEVO </option>
+                            <option value="263204">EBAIS LOS CORALES  </option>
+                            <option value="263205">EBAIS SANTA EDUVIGES </option>
+                            <option value="263206">EBAIS CRISTOBAL COLON</option>
+                            <option value="263207">EBAIS VILLA DEL MAR  </option>
+                            <option value="263208">EBAIS LIVERPOOL  </option>
+                            <option value="263209">EBAIS RIO BANANO </option>
+                            <option value="263210">EBAIS BANANITO</option>
+                            <option value="263220">EBAIS LIMON CENTRO</option>
+                            <option value="263221">EBAIS LIMON 2000 </option>															
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col col-12 col-md-6">
+                          <div class="input-group">
+                            <label for="exampleFormControlSelect1">Medio de Activacion</label>
+                            <input type="hidden" id="id" value="" class="form-control" />
+                          </div>
+                        <div class="input-group">
+                          <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input">
+                            <label class="custom-control-label" for="customRadioInline1"><i class="material-icons">local_phone
+                            </i>Telefono</label>
+                          </div>
+                          <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
+                            <label class="custom-control-label" for="customRadioInline2"><i class="material-icons">settings_cell
+                            </i>WhatsApp</label>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            
+              <div class="form-group">
+              <label for="exampleFormControlTextarea1">Señas Exactas:</label>
+              <textarea class="form-control" id="direccion" rows="2"></textarea>
+            </div>
+              <div class="row">
+                <div class="col-sm">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="material-icons">record_voice_over
+                        </i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control" id ="recibe" placeholder="PERSONA QUE RECIBE EL TRATAMIENTO">
+                  </div>
+                </div>
+              </div>
+              <div class="row justify-content-center">
+                <div class="col-md-6 text-center mt-3">
+                  <button class="btn btn-primary btn-lg btn-block" id="boton" onclick="guardar()" >Guardar</button>
+                </div>
+              </div>
+      </div>
+    </div>
+            </div>
 
-
-
-
-//borrar documentos.
-function eliminar(id){
-    db.collection("CopiasTelefono").doc(id).delete().then(function() {
-        console.log("Document successfully deleted!");
-        limpiarCampos();
-
-    }).catch(function(error) {
-        console.error("Error removing document: ", error);
-    });
-
-}
-
-//editar documentos
-function editar(id,cedula,nombre,telefono, ebais, direccion, recibe,fecha){
-
-document.getElementById('cedula').value= cedula;
-document.getElementById('nombre').value= nombre;
-document.getElementById('telefono').value= telefono;
-document.getElementById('ebais').value= ebais;
-document.getElementById('direccion').value= direccion;
-document.getElementById('recibe').value= recibe;
-document.getElementById('fecha').value= fecha;
-var boton = document.getElementById('boton');
-boton.innerHTML='Editar';
-boton.onclick = function (){
-    var washingtonRef = db.collection("CopiasTelefono").doc(id);
-    // Set the "capital" field of the city 'DC'
-     var cedula= document.getElementById('cedula').value;
-    var nombre = document.getElementById('nombre').value;
-    
-    var ebais = document.getElementById('ebais').value;
-    var telefono = document.getElementById('telefono').value;
-    var direccion = document.getElementById('direccion').value;
-    var recibe = document.getElementById('recibe').value;
-    return washingtonRef.update({
-        Cedula: cedula,
-        Ebais: ebais,
-        Nombre: nombre,
-        Telefono: telefono,
-        Direccion: direccion,
-        Recibe: recibe,
-    })
-    .then(function() {
-        console.log("Document successfully updated!");
-        boton.innerHTML='Guardar';
-     limpiarCampos();
-
-
-    })
-    .catch(function(error) {
-        // The document probably doesn't exist.
-        console.error("Error updating document: ", error);
-    });
-    
-    
-    } 
-}
-
-
-function buscar(){
-    var citiesRef = db.collection("cities");
-
-citiesRef.doc("SF").set({
-    name: "San Francisco", state: "CA", country: "USA",
-    capital: false, population: 860000,
-    regions: ["west_coast", "norcal"] });
-citiesRef.doc("LA").set({
-    name: "Los Angeles", state: "CA", country: "USA",
-    capital: false, population: 3900000,
-    regions: ["west_coast", "socal"] });
-citiesRef.doc("DC").set({
-    name: "Washington, D.C.", state: null, country: "USA",
-    capital: true, population: 680000,
-    regions: ["east_coast"] });
-citiesRef.doc("TOK").set({
-    name: "Tokyo", state: null, country: "Japan",
-    capital: true, population: 9000000,
-    regions: ["kanto", "honshu"] });
-citiesRef.doc("BJ").set({
-    name: "Beijing", state: null, country: "China",
-    capital: true, population: 21500000,
-    regions: ["jingjinji", "hebei"] });
-
-}
-
-
-
-
-function consulta(){
-    centroSalud = document.getElementById('cedula').value;
-    db.collection("Area Salud Limon").doc(centroSalud)
-    .onSnapshot(function(doc) {
-        document.getElementById('nombre').value = doc.data().Nombre;
-        console.log(doc.data().Nombre)
-    });
-  
-}
-
-/* var centroSalud = document.getElementById ('centroSalud');
-centroSalud.addEventListener("keypress", myFunction) */
-
-var botonBuscar = document.getElementById('btnBuscar');
-//botonBuscar.addEventListener("click", consulta);
-
-function msj(){
-    console.log("josuea Aqui")
-}
-
-function myFunction(event) {
-    var x = event.which || event.keyCode;
-    //document.getElementById("demo").innerHTML = "The Unicode value is: " + x;
-  if (x==13){
-      console.log('x')
-    consulta();
-  }
-  
-  }
- 
+            
      
-
-function imprimirElemento(id,cedula,nombre,telefono, ebais, direccion, recibe,fecha) {
-
-    document.getElementById('cedula').value= cedula;
-    document.getElementById('nombre').value= nombre;
-    document.getElementById('telefono').value= telefono;
-    document.getElementById('ebais').value= ebais;
-    document.getElementById('direccion').value= direccion;
-    document.getElementById('recibe').value= recibe;
-    document.getElementById('fecha').value= fecha;
-    
-       var printCedula= document.getElementById('cedula');
-       var printNombre= document.getElementById('nombre');
-       var printTelefono= document.getElementById('telefono');
-       var printDireccion= document.getElementById('direccion');
-       var printRecibe= document.getElementById('recibe');
-       var printFecha = document.getElementById('fecha');
-       console.log(recibe)
-       console.log(recibe)
-       console.log(recibe)
-
+            
         
+    `;
+    }
     
-  
-    
-
-    var ventana = window.open('', 'PRINT', 'height=400,width=600');
-    ventana.document.write('<html><head><title>' + document.title + '</title>');
-    ventana.document.write('</head><body >');
-    //ventana.document.write(elemento);
-    ventana.document.write('<p>'+ '<img src="https://www.ccss.sa.cr/img/logo.png"> <hr> <p>CAJA COSTARRICENSE DE SEGURO SOCIAL</p>' +
-    '<h3>Area de Salud Limon</h3>' +
-    '<p>Formulario de registro para el envio a domicilio de los medicamentos</p> '+ 
-    '<p>'+ printFecha.value +'</<p>'+
-    '<hr>'+
-    '<h3>' + printCedula.value + '</h3> <hr>'+ 
-    printNombre.value +'<hr>'+
-    printTelefono.value +'<hr>'+
-    printDireccion.value +'<hr>'+
-    '<P>Firma Recibido</P> <br><hr>'+
-    printRecibe.value +'<hr>'+    
-    n);
-
-    ventana.document.write('</body></html>');
-    limpiarCampos();
-    ventana.document.close();
-    ventana.focus();
-    ventana.print();
-    ventana.close();
-    return true;
-
-  }
-  
-  document.querySelector("#btnImprimir").addEventListener("click", function () {
-    var div = document.querySelector("#imprimible");
-    imprimirElemento(div);
-  });
-
-function limpiarCampos (){
-    document.getElementById('cedula').value='';
-    document.getElementById('nombre').value='';
-    document.getElementById('ebais').value='';
-    document.getElementById('telefono').value='';
-    document.getElementById('direccion').value='';
-    document.getElementById('recibe').value='';
 }
 
- 
 
+function cerrar(){
+    firebase.auth().signOut()
+    .then(function(){
 
+        console.log('Cerrando Sesion...')
+    })
+    .catch(function(error){
+        console.log(error)
 
+    })
+}
 
+function verificar(){
+    var user = firebase.auth().currentUser;
 
-
-
-
-
-
-
+    user.sendEmailVerification().then(function() {
+    // Email sent.
+    console.log('Enviando Correo...');
+    }).catch(function(error) {
+    // An error happened.
+    console.log(error);
+    });
+}
