@@ -1,4 +1,3 @@
-
 const d = new Date()
 let timeNow = new Date();
 //var n = timeNow.toLocaleDateString();
@@ -17,8 +16,18 @@ console.log(mainTime)
 
 document.getElementById('FechaActual').innerHTML= mainDay 
  
-  var db = firebase.firestore();
   
+var firebaseConfig = {
+    apiKey: "AIzaSyC74QNWfrpQ_dlAxU9fkSGYL-qDgYxiHn4",
+    authDomain: "tiempos-d2216.firebaseapp.com",
+    databaseURL: "https://tiempos-d2216.firebaseio.com",
+    projectId: "tiempos-d2216",
+    storageBucket: "tiempos-d2216.appspot.com",
+    messagingSenderId: "361199090866",
+    appId: "1:361199090866:web:d53a63ee9b4b93c8"
+  };
+  firebase.initializeApp(firebaseConfig);
+var db = firebase.firestore();
 
 //agregar documentos
 function guardar (){
@@ -83,7 +92,7 @@ db.collection("CopiasTelefono").orderBy("Fecha", "desc").onSnapshot((querySnapsh
         <td>${doc.data().Telefono}</td>
         <td>${fechaRegistro}</td>
         <td><button class="btn btn-danger btn-just-icon btn-sm" onclick="eliminar('${doc.id}')"> <i class="material-icons">close</i></button></td>
-        <td><button class="btn btn-success btn-just-icon btn-sm"onclick="editar('${doc.id}','${doc.data().TipoID}','${doc.data().Cedula}','${doc.data().Nombre}','${doc.data().Telefono}','${doc.data().Ebais}','${doc.data().Correo}','${doc.data().Direccion}','${doc.data().Recibe}','${doc.data().Fecha}')">  <i class="material-icons">edit</i></button></td>
+        <td><button class="btn btn-success btn-just-icon btn-sm" data-toggle="modal" data-target="#exampleModal" onclick="editar('${doc.id}','${doc.data().TipoID}','${doc.data().Cedula}','${doc.data().Nombre}','${doc.data().Telefono}','${doc.data().Ebais}','${doc.data().Correo}','${doc.data().Direccion}','${doc.data().Recibe}','${doc.data().Fecha}')">  <i class="material-icons">edit</i></button></td>
         <td><button class="btn btn-warning btn-just-icon btn-sm"onclick="imprimirElemento('${doc.id}','${doc.data().Cedula}','${doc.data().Nombre}','${doc.data().Telefono}','${doc.data().Ebais}','${doc.data().Direccion}','${doc.data().Recibe}','${doc.data().Fecha}')">  <i class="material-icons">print</i></button></td>
         </tr>   
         ` //<- ojo a estas comillas especiales 
@@ -108,30 +117,31 @@ function eliminar(id){
 //editar documentos
 function editar(id,tipoId,cedula,nombre,telefono, ebais,correo, direccion, recibe,fecha){
 
-document.getElementById('tipoId').value= tipoId;   
-document.getElementById('cedula').value= cedula;
-document.getElementById('nombre').value= nombre;
-document.getElementById('telefono').value= telefono;
-document.getElementById('ebais').value= ebais;
-document.getElementById('correo').value= correo;
-document.getElementById('direccion').value= direccion;
-document.getElementById('recibe').value= recibe;
-document.getElementById('fecha').value= fecha;
+    modalID.innerHTML=  `   <strong>${id}</strong>`
 
-var boton = document.getElementById('boton');
-boton.innerHTML='Editar';
-boton.onclick = function (){
+document.getElementById('tipoId2').value= tipoId;   
+document.getElementById('cedula2').value= cedula;
+document.getElementById('nombre2').value= nombre;
+document.getElementById('telefono2').value= telefono;
+document.getElementById('ebais2').value= ebais;
+document.getElementById('correo2').value= correo;
+document.getElementById('direccion2').value= direccion;
+document.getElementById('recibe2').value= recibe;
+//document.getElementById('fecha2').value= fecha;
+
+
+botonGuardarCambio.onclick = function (){
     var washingtonRef = db.collection("CopiasTelefono").doc(id);
     // Set the "capital" field of the city 'DC'
-    var tipoId= document.getElementById('tipoId').value;
+    var tipoId= document.getElementById('tipoId2').value;
     console.log(tipoId);
-    var cedula= document.getElementById('cedula').value;
-    var nombre = document.getElementById('nombre').value;
-    var telefono = document.getElementById('telefono').value;
-    var ebais = document.getElementById('ebais').value;
-    var correo = document.getElementById('correo').value
-    var direccion = document.getElementById('direccion').value;
-    var recibe = document.getElementById('recibe').value;
+    var cedula= document.getElementById('cedula2').value;
+    var nombre = document.getElementById('nombre2').value;
+    var telefono = document.getElementById('telefono2').value;
+    var ebais = document.getElementById('ebais2').value;
+    var correo = document.getElementById('correo2').value
+    var direccion = document.getElementById('direccion2').value;
+    var recibe = document.getElementById('recibe2').value;
 
     return washingtonRef.update({
         
@@ -145,9 +155,9 @@ boton.onclick = function (){
         Recibe: recibe,
     })
     .then(function() {
-        console.log("Document successfully updated!");
+        alert("Document successfully updated!");
         boton.innerHTML='Guardar';
-  /*    limpiarCampos(); */
+      limpiarCampos(); 
 
 
     })
@@ -230,7 +240,9 @@ function myFunction(event) {
      	// body...
      }
 
+
 function imprimirElemento(id,cedula,nombre,telefono, ebais, direccion, recibe,fecha) {
+
 
     document.getElementById('cedula').value= cedula;
     document.getElementById('nombre').value= nombre;
@@ -239,6 +251,16 @@ function imprimirElemento(id,cedula,nombre,telefono, ebais, direccion, recibe,fe
     document.getElementById('direccion').value= direccion;
     document.getElementById('recibe').value= recibe;
     document.getElementById('fecha').value= fecha;
+
+
+
+    console.log(fecha)
+ 
+
+     // Convert timestamp to milliseconds
+        var date = new Date(fecha);
+        console.log(date)
+
     
        var printCedula= document.getElementById('cedula');
        var printNombre= document.getElementById('nombre');
