@@ -12,14 +12,18 @@
     
 
     <title>Registro de llamadas y Domicilios</title>
+    <style> 
+       .modal-dialog {
+            max-width: 800px;
+            margin: 1.75rem auto;
+        }
+    </style>
   </head>
+
   <body>
-    <div id="main">
-
-
+  <div id="main">
+    <div id="contenedor Secundario" class="mx-5">
       
-    
-    <div class="alert alert-light" role="alert">
       <div class="card-header card-header-primary text-center">
         <img src="https://www.ccss.sa.cr/img/logo.png" alt="Circle Image" class="rounded-circle img-fluid" id="imagen" style="width: 2.5rem">
         
@@ -30,131 +34,129 @@
         </div>
         <hr>
         <div class="container">
-<div class="card-body">
-    <div class="row">
-          <div class="col col-12 col-md-6">
-            <div class="form-group">
-              <label for="exampleFormControlSelect1">Tipo de Identificacion</label>
-              <select id="tipoId"  class="form-control" required="required"><option value="">Seleccione:</option>
-              <option value="0">NACIONAL</option>
-              <option value="7">EXTRANGERO</option>
-              <option value="6">INTERNO</option>
-                                          
-          </select>
-            </div>  
-          </div>
-        <div class="col col-12 col-md-6">
-          <div class="input-group">
-              <label for="exampleFormControlSelect1">Numero de Identificacion</label>
-              <input type="hidden" id="id" value="" class="form-control" />
-            </div>
-            <div class="input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text">
-                  <i class="material-icons">format_list_numbered</i>
-                </span>
-              </div>
-              <input type="text" id="cedula" placeholder="Identificacion" value="" class="form-control" />
-            </div>
-        </div>
-    </div>
-    <div class="row">
-      <div class="col-sm">
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text">
-              <i class="material-icons">face</i>
-            </span>
-          </div>
-          <input type="text" id="nombre" placeholder="Nombre del Paciente" value="" class="form-control text-uppercase" />
-        </div>
-      </div>
-    </div>
-      <div class="row mt-3">
-            <div class="col-12 col-md-6">
-                <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="material-icons">mobile_screen_share</i>
-                  </span>
-                </div>
-                <input type="text" id="telefono" placeholder="Telefono" value="" class="form-control" />
-              </div>
-            </div>
-            <div class="col-12 col-md-6">
-                <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="material-icons">mobile_screen_share</i>
-                  </span>
-                </div>
-                <input type="text" id="correo" placeholder="Correo" value="" class="form-control" />
-              </div>
-            </div>
-      </div>
-        
-      <input type="hidden" id="fecha" placeholder="fecha" value="" class="form-control" />
-
-          <div class="row mt-3">
-                <div class="col col-12 col-md-6">
-                <div class="input-group mb-3 ">
-                  <div class="input-group-prepend">
-                    <label class="input-group-text" for="inputGroupSelect01"><i class="material-icons">face</i></label>
+        <div class="card-body">
+            <div class="row">
+                  <div class="col col-12 col-md-6">
+                    <div class="form-group">
+                      <label for="exampleFormControlSelect1">Tipo de Identificacion</label>
+                      <select id="tipoId"  class="form-control" required="required"><option value="">Seleccione:</option>
+                      <option value="0">NACIONAL</option>
+                      <option value="7">EXTRANGERO</option>
+                      <option value="6">INTERNO</option>                    
+                    </select>
+                      </div>  
                   </div>
-                    <select  id="ebais" name="ebais_activos" class="form-control" required="required"><option value="" >Seleccione:</option>
-                      <option value="263201">EBAIS LOS COCOS </option>
-                      <option value="263202">EBAIS LA COLINA </option>
-                      <option value="263203">EBAIS PUEBLO NUEVO </option>
-                      <option value="263204">EBAIS LOS CORALES  </option>
-                      <option value="263205">EBAIS SANTA EDUVIGES </option>
-                      <option value="263206">EBAIS CRISTOBAL COLON</option>
-                      <option value="263207">EBAIS VILLA DEL MAR  </option>
-                      <option value="263208">EBAIS LIVERPOOL  </option>
-                      <option value="263209">EBAIS RIO BANANO </option>
-                      <option value="263210">EBAIS BANANITO</option>
-                      <option value="263220">EBAIS LIMON CENTRO</option>
-                      <option value="263221">EBAIS LIMON 2000 </option>															
-                  </select>
-                </div>
-              </div>
-              <div class="col col-12 col-md-6">
-                
-                <div class="form-group">
-                  <p class="mb-0" id="FechaActual" v-model="hoy">
-                    - <a href="dashboard.html" class="text-muted">Spark</a>
-                   </p>
-                </div>
-                
-                 
-              </div>
-          </div>
-        
-      
-        <div class="form-group">
-        <label for="exampleFormControlTextarea1">Señas Exactas:</label>
-        
-        <input type="text" id="direccion" placeholder="Direccion del domicilio" value="" class="form-control text-uppercase" />
-      </div>
-        <div class="row">
-          <div class="col-sm">
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text">
-                  <i class="material-icons">record_voice_over
-                  </i>
-                </span>
-              </div>
-              <input type="text" class="form-control" id ="recibe" placeholder="PERSONA QUE RECIBE EL TRATAMIENTO">
+                  <div class="col col-12 col-md-6">
+                  <div class="input-group">
+                      <label for="exampleFormControlSelect1">Numero de Identificacion</label>
+                      <input type="hidden" id="id" value="" class="form-control" />
+                    </div>
+                    <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="material-icons">format_list_numbered</i>
+                        </span>
+                      </div>
+                      <input type="text" id="cedula" placeholder="Identificacion" value="" class="form-control" />
+                    </div>
+                  </div>
             </div>
-          </div>
+            <div class="row">
+              <div class="col-sm">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="material-icons">face</i>
+                    </span>
+                  </div>
+                  <input type="text" id="nombre" placeholder="Nombre del Paciente" value="" class="form-control text-uppercase" />
+                </div>
+              </div>
+            </div>
+              <div class="row mt-3">
+                    <div class="col-12 col-md-6">
+                        <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="material-icons">mobile_screen_share</i>
+                          </span>
+                        </div>
+                        <input type="text" id="telefono" placeholder="Telefono" value="" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="material-icons">alternate_email</i>
+                          </span>
+                        </div>
+                        <input type="text" id="correo" placeholder="Correo" value="" class="form-control" />
+                      </div>
+                    </div>
+              </div> 
+              <input type="text" id="fecha" placeholder="fecha" value="" class="form-control" />
+
+                  <div class="row mt-3">
+                      <div class="col col-12 col-md-6">
+                        <div class="input-group mb-3 ">
+                          <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01"><i class="material-icons">face</i></label>
+                          </div>
+                            <select  id="ebais" name="ebais_activos" class="form-control" required="required"><option value="" >Seleccione:</option>
+                              <option value="263201">EBAIS LOS COCOS </option>
+                              <option value="263202">EBAIS LA COLINA </option>
+                              <option value="263203">EBAIS PUEBLO NUEVO </option>
+                              <option value="263204">EBAIS LOS CORALES  </option>
+                              <option value="263205">EBAIS SANTA EDUVIGES </option>
+                              <option value="263206">EBAIS CRISTOBAL COLON</option>
+                              <option value="263207">EBAIS VILLA DEL MAR  </option>
+                              <option value="263208">EBAIS LIVERPOOL  </option>
+                              <option value="263209">EBAIS RIO BANANO </option>
+                              <option value="263210">EBAIS BANANITO</option>
+                              <option value="263220">EBAIS LIMON CENTRO</option>
+                              <option value="263221">EBAIS LIMON 2000 </option>															
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col col-12 col-md-6">
+                        
+                        <div class="form-group">
+                          <p class="mb-0" id="FechaActual" v-model="hoy">
+                            - <a href="dashboard.html" class="text-muted">Spark</a>
+                          </p>
+                        </div>
+                        
+                        
+                      </div>
+                  </div>
+                
+              
+                <div class="form-group">
+                  <label for="exampleFormControlTextarea1">Señas Exactas:</label>
+                  <input type="text" id="direccion" placeholder="Direccion del domicilio" value="" class="form-control text-uppercase" />
+              </div>
+                <div class="row">
+                  <div class="col-sm">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="material-icons">record_voice_over
+                          </i>
+                        </span>
+                      </div>
+                      <input type="text" class="form-control" id ="recibe" placeholder="PERSONA QUE RECIBE EL TRATAMIENTO">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row justify-content-center">
+                  <div class="col-md-6 text-center mt-3">
+                    <button class="btn btn-primary btn-lg btn-block" id="boton" onclick="guardar()" >Guardar</button>
+                  </div>
+                </div>
         </div>
-        <div class="row justify-content-center">
-          <div class="col-md-6 text-center mt-3">
-            <button class="btn btn-primary btn-lg btn-block" id="boton" onclick="guardar()" >Guardar</button>
-          </div>
-        </div>
-</div>
-</div>
+    </div>
       </div>
 
       <div class="mt-4 ml-4" >
@@ -167,45 +169,168 @@
         </span>
       </div>
     </div>
-</div>
+      </div>
 
-<div class=" mt-3 ml-5" >     
-<div class="table-responsive">
-<table class="table" >
-  <thead>
-    <tr>
-      <th scope="col">TipoID</th>
-      <th scope="col">Cedula</th>
-      <th scope="col">Nombre Completo</th>
-      <th scope="col">Ebais</th>
-      <th scope="col">Telefono</th>
-      <th scope="col">Fecha</th>   
-      <th>Eliminar</th>
-      <th>Editar</th>
-      <th>Imprimir</th>
-    </tr>
-  </thead>
-  <tbody id="tabla"> </tbody>
-</table>
-</div>
-</div>
-      
-    <div class="row">
-      <p class="mb-0" id="FechaActual" >
-    </div>
-                
-    <!-- Button trigger modal -->
+      <div class=" mt-3 ml-5" >     
+      <div class="table-responsive">
+      <table class="table" >
+        <thead>
+          <tr>
+            <th scope="col">TipoID</th>
+            <th scope="col">Cedula</th>
+            <th scope="col">Nombre Completo</th>
+            <th scope="col">Ebais</th>
+            <th scope="col">Telefono</th>
+            <th scope="col">Fecha</th>   
+            <th>Eliminar</th>
+            <th>Editar</th>
+            <th>Imprimir</th>
+          </tr>
+        </thead>
+        <tbody id="tabla"> </tbody>
+      </table>
+      </div>
+      </div>
+            
+          <div class="row">
+            <p class="mb-0" id="FechaActual" >
+          </div>
+                      
+          <!-- Ventana modal para la edicion de datos -->
+          <div class="modal fade"  id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="modalTitulo">Editar datos del paciente</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                        
+                  <div>
+                    <div class="row">
+                          <div class="col col-12 col-md-6">
+                            <div class="form-group">
+                              <label for="exampleFormControlSelect1">Tipo de Identificacion</label>
+                              <select id="tipoId2"  class="form-control" required="required"><option value="">Seleccione:</option>
+                              <option value="0">NACIONAL</option>
+                              <option value="7">EXTRANGERO</option>
+                              <option value="6">INTERNO</option>                    
+                            </select>
+                              </div>  
+                          </div>
+                          <div class="col col-12 col-md-6">
+                          <div class="input-group">
+                              <label for="exampleFormControlSelect1">Numero de Identificacion</label>
+                              <input type="hidden" id="id2" value="" class="form-control" />
+                            </div>
+                            <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                  <i class="material-icons">format_list_numbered</i>
+                                </span>
+                              </div>
+                              <input type="text" id="cedula2" placeholder="Identificacion" value="" class="form-control" />
+                            </div>
+                          </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm">
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">
+                              <i class="material-icons">face</i>
+                            </span>
+                          </div>
+                          <input type="text" id="nombre2" placeholder="Nombre del Paciente" value="" class="form-control text-uppercase" />
+                        </div>
+                      </div>
+                    </div>
+                      <div class="row mt-3">
+                            <div class="col-12 col-md-6">
+                                <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text">
+                                    <i class="material-icons">mobile_screen_share</i>
+                                  </span>
+                                </div>
+                                <input type="text" id="telefono2" placeholder="Telefono" value="" class="form-control" />
+                              </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text">
+                                    <i class="material-icons">alternate_email</i>
+                                  </span>
+                                </div>
+                                <input type="text" id="correo2" placeholder="Correo" value="" class="form-control" />
+                              </div>
+                            </div>
+                      </div> 
+                    
 
-  </div>    
+                          <div class="row mt-3">
+                              <div class="col col-12 col-md-6">
+                                <div class="input-group mb-3 ">
+                                  <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01"><i class="material-icons">face</i></label>
+                                  </div>
+                                    <select  id="ebais2" name="ebais_activos" class="form-control" required="required"><option value="" >Seleccione:</option>
+                                      <option value="263201">EBAIS LOS COCOS </option>
+                                      <option value="263202">EBAIS LA COLINA </option>
+                                      <option value="263203">EBAIS PUEBLO NUEVO </option>
+                                      <option value="263204">EBAIS LOS CORALES  </option>
+                                      <option value="263205">EBAIS SANTA EDUVIGES </option>
+                                      <option value="263206">EBAIS CRISTOBAL COLON</option>
+                                      <option value="263207">EBAIS VILLA DEL MAR  </option>
+                                      <option value="263208">EBAIS LIVERPOOL  </option>
+                                      <option value="263209">EBAIS RIO BANANO </option>
+                                      <option value="263210">EBAIS BANANITO</option>
+                                      <option value="263220">EBAIS LIMON CENTRO</option>
+                                      <option value="263221">EBAIS LIMON 2000 </option>															
+                                  </select>
+                                </div>
+                              </div>
+                          
+                          </div>
+                        
+                      
+                        <div class="form-group">
+                          <label for="exampleFormControlTextarea1">Señas Exactas:</label>
+                          <input type="text" id="direccion2" placeholder="Direccion del domicilio" value="" class="form-control text-uppercase" />
+                      </div>
+                        <div class="row">
+                          <div class="col-sm">
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                  <i class="material-icons">record_voice_over
+                                  </i>
+                                </span>
+                              </div>
+                              <input type="text" class="form-control" id ="recibe2" placeholder="PERSONA QUE RECIBE EL TRATAMIENTO">
+                            </div>
+                          </div>
+                        </div>
+                        
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <p class="col align-self-start" id="modalID"></p>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" id="botonGuardarCambio" class="btn btn-primary">Save changes</button>
+                </div>
+              </div>
+            </div>
+          </div> <!-- cierre del div ventana modal para editar datos -->
+
+    </div>  <!-- cierre del div contenedor Secundario -->
+  </div> <!-- div cierre del main -->
           
  
-  
-
-    <script>
-   
-    </script>
-
-    <!-- Optional JavaScript -->
+   <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="js/jquery-3.5.1.slim.min.js"></script>
     <script src="js/popper.min.js"></script>
@@ -219,17 +344,9 @@
     
 <script>
     // Your web app's Firebase configuration
-    var firebaseConfig = {
-      apiKey: "AIzaSyC74QNWfrpQ_dlAxU9fkSGYL-qDgYxiHn4",
-      authDomain: "tiempos-d2216.firebaseapp.com",
-      databaseURL: "https://tiempos-d2216.firebaseio.com",
-      projectId: "tiempos-d2216",
-      storageBucket: "tiempos-d2216.appspot.com",
-      messagingSenderId: "361199090866",
-      appId: "1:361199090866:web:d53a63ee9b4b93c8"
-    };
+   
     // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
+    
   </script>
       <!-- <script src="app.js"></script> -->
       <script src="js/datos.js"></script>
