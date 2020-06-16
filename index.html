@@ -14,89 +14,196 @@
     <title>Registro de llamadas y Domicilios</title>
   </head>
   <body>
-    <div class="container mt-2">
-        <nav class="navbar navbar-dark bg-dark">
-          <img src="https://www.ccss.sa.cr/img/logo.png
-                " alt="Circle Image" class="rounded-circle img-fluid" id="imagen" style="width: 2.5rem">
-            <a class="navbar-brand">Area Salud Limon</a>
-            <div class="form-inline">
-                <input id="email2" type="email" placeholder="email" class="form-control form-control-sm mr-sm-2">
-                <input id="contraseña2" type="password" placeholder="pass" class="form-control form-control-sm mr-sm-2">
-                 <button class="btn btn-danger my-2 my-sm-0 btn-sm mr-2" onclick="ingreso()">Acceder</button>
-                 <button class="btn btn-success my-2 my-sm-0 btn-sm mr-sm-2" data-toggle="modal" data-target="#exampleModal" >Registar</button>
+    <div id="main">
 
-            </div>
-          </nav>
+
+      
     
-<!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                  
-                <h5 class="modal-title" id="exampleModalLabel">Formulario de Registro</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-                <div class="modal-body">
-                  
-                    <input id="email" type="email" placeholder="Ingrese un email" class="form-control" >
-                    <div class="mt-2"></div>
-                    <input id="contraseña" type="password" placeholder="ingrese contraseña"class="form-control" >
-                </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" onclick="registrar()">Registar</button>
-                
-                </div>
+    <div class="alert alert-light" role="alert">
+      <div class="card-header card-header-primary text-center">
+        <img src="https://www.ccss.sa.cr/img/logo.png" alt="Circle Image" class="rounded-circle img-fluid" id="imagen" style="width: 2.5rem">
+        
+
+              <h3 class="card-title" id="titulo">Area de Salud Limon.!</h3>
+        <p class="description text-center" id="encabezado">FORMULARIO DE REGISTRO PARA EL ENVIO A DOMICILIO DE LOS MEDICAMENTOS</p>
+        <div class="social-line">             
+        </div>
+        <hr>
+        <div class="container">
+<div class="card-body">
+    <div class="row">
+          <div class="col col-12 col-md-6">
+            <div class="form-group">
+              <label for="exampleFormControlSelect1">Tipo de Identificacion</label>
+              <select id="tipoId"  class="form-control" required="required"><option value="">Seleccione:</option>
+              <option value="0">NACIONAL</option>
+              <option value="7">EXTRANGERO</option>
+              <option value="6">INTERNO</option>
+                                          
+          </select>
+            </div>  
+          </div>
+        <div class="col col-12 col-md-6">
+          <div class="input-group">
+              <label for="exampleFormControlSelect1">Numero de Identificacion</label>
+              <input type="hidden" id="id" value="" class="form-control" />
             </div>
+            <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="material-icons">format_list_numbered</i>
+                </span>
+              </div>
+              <input type="text" id="cedula" placeholder="Identificacion" value="" class="form-control" />
             </div>
         </div>
     </div>
-    <div class="container mt-2" id="contenido">
-    
+    <div class="row">
+      <div class="col-sm">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="material-icons">face</i>
+            </span>
+          </div>
+          <input type="text" id="nombre" placeholder="Nombre del Paciente" value="" class="form-control text-uppercase" />
+        </div>
+      </div>
     </div>
+      <div class="row mt-3">
+            <div class="col-12 col-md-6">
+                <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="material-icons">mobile_screen_share</i>
+                  </span>
+                </div>
+                <input type="text" id="telefono" placeholder="Telefono" value="" class="form-control" />
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="material-icons">mobile_screen_share</i>
+                  </span>
+                </div>
+                <input type="text" id="correo" placeholder="Correo" value="" class="form-control" />
+              </div>
+            </div>
+      </div>
+        
+      <input type="hidden" id="fecha" placeholder="fecha" value="" class="form-control" />
 
-
-  <script>
-    function myFiltro() {
-      var input, filter, table, tr, td, i, txtValue;
-      input = document.getElementById("myInput");
-      filter = input.value.toUpperCase();
-      table = document.getElementById("tabla");
-      tr = table.getElementsByTagName("tr");
-      for (i = 0; i < tr.length; i++) {
-        console.log(tr.length);
+          <div class="row mt-3">
+                <div class="col col-12 col-md-6">
+                <div class="input-group mb-3 ">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01"><i class="material-icons">face</i></label>
+                  </div>
+                    <select  id="ebais" name="ebais_activos" class="form-control" required="required"><option value="" >Seleccione:</option>
+                      <option value="263201">EBAIS LOS COCOS </option>
+                      <option value="263202">EBAIS LA COLINA </option>
+                      <option value="263203">EBAIS PUEBLO NUEVO </option>
+                      <option value="263204">EBAIS LOS CORALES  </option>
+                      <option value="263205">EBAIS SANTA EDUVIGES </option>
+                      <option value="263206">EBAIS CRISTOBAL COLON</option>
+                      <option value="263207">EBAIS VILLA DEL MAR  </option>
+                      <option value="263208">EBAIS LIVERPOOL  </option>
+                      <option value="263209">EBAIS RIO BANANO </option>
+                      <option value="263210">EBAIS BANANITO</option>
+                      <option value="263220">EBAIS LIMON CENTRO</option>
+                      <option value="263221">EBAIS LIMON 2000 </option>															
+                  </select>
+                </div>
+              </div>
+              <div class="col col-12 col-md-6">
+                
+                <div class="form-group">
+                  <p class="mb-0" id="FechaActual" v-model="hoy">
+                    - <a href="dashboard.html" class="text-muted">Spark</a>
+                   </p>
+                </div>
+                
+                 
+              </div>
+          </div>
+        
       
-;
-        td = tr[i].getElementsByTagName("th")[0];
-        if (td) {
-          txtValue = td.textContent || td.innerText;
-          if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            tr[i].style.display = "";
-          } else {
-            tr[i].style.display = "none";
-          }
-        }       
-      }
-      var yea=document.getElementById("tabla").rows.length;
-       
-    }
-    </script>
- 
+        <div class="form-group">
+        <label for="exampleFormControlTextarea1">Señas Exactas:</label>
+        
+        <input type="text" id="direccion" placeholder="Direccion del domicilio" value="" class="form-control text-uppercase" />
+      </div>
+        <div class="row">
+          <div class="col-sm">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="material-icons">record_voice_over
+                  </i>
+                </span>
+              </div>
+              <input type="text" class="form-control" id ="recibe" placeholder="PERSONA QUE RECIBE EL TRATAMIENTO">
+            </div>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-md-6 text-center mt-3">
+            <button class="btn btn-primary btn-lg btn-block" id="boton" onclick="guardar()" >Guardar</button>
+          </div>
+        </div>
+</div>
+</div>
+      </div>
 
+      <div class="mt-4 ml-4" >
+      <div class="col-4 col-md-6 sx-12">
+        <div class="input-group">
+        
+        <input type="text" id="myInput" onkeyup="myFiltro()" placeholder="Buscar" value="" class="form-control" />
+        <span class="input-group-text">
+          <i class="material-icons">search</i>
+        </span>
+      </div>
+    </div>
+</div>
 
+<div class=" mt-3 ml-5" >     
+<div class="table-responsive">
+<table class="table" >
+  <thead>
+    <tr>
+      <th scope="col">TipoID</th>
+      <th scope="col">Cedula</th>
+      <th scope="col">Nombre Completo</th>
+      <th scope="col">Ebais</th>
+      <th scope="col">Telefono</th>
+      <th scope="col">Fecha</th>   
+      <th>Eliminar</th>
+      <th>Editar</th>
+      <th>Imprimir</th>
+    </tr>
+  </thead>
+  <tbody id="tabla"> </tbody>
+</table>
+</div>
+</div>
+      
     <div class="row">
       <p class="mb-0" id="FechaActual" >
     </div>
                 
     <!-- Button trigger modal -->
 
-          
+  </div>    
           
  
-        
+  
+
+    <script>
+   
+    </script>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -124,8 +231,35 @@
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
   </script>
-      <script src="app.js"></script>
+      <!-- <script src="app.js"></script> -->
       <script src="js/datos.js"></script>
+
+      
+  <script>
+    function myFiltro() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("tabla");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        console.log(tr.length);
+      
+;
+        td = tr[i].getElementsByTagName("th")[0];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }       
+      }
+      var yea=document.getElementById("tabla").rows.length;
+       
+    }
+    </script>
       
   </body>
 </html>
